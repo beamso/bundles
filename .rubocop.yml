@@ -6,6 +6,13 @@ AllCops:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/Documentation:
+  Enabled: false
+
 Lint/SuppressedException:
   Exclude:
     - 'Rakefile'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**.*'

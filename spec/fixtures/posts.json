@@ -1,0 +1,52 @@
+[
+    {
+        "submission_format": "Image",
+        "format_code": "IMG",
+        "bundles": [
+            {
+                "number": 5,
+                "amount": 450.0
+            },
+            {
+                "number": 10,
+                "amount": 800.0
+            }
+        ]
+    },
+    {
+        "submission_format": "Audio",
+        "format_code": "FLAC",
+        "bundles": [
+            {
+                "number": 3,
+                "amount": 427.5
+            },
+            {
+                "number": 6,
+                "amount": 810.0
+            },
+            {
+                "number": 9,
+                "amount": 1147.5
+            }
+        ]
+    },
+    {
+        "submission_format": "Video",
+        "format_code": "VID",
+        "bundles": [
+            {
+                "number": 3,
+                "amount": 570.0
+            },
+            {
+                "number": 5,
+                "amount": 900.0
+            },
+            {
+                "number": 9,
+                "amount": 1530.0
+            }
+        ]
+    }
+]
