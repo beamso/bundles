@@ -1,4 +1,5 @@
 require 'json'
+require_relative 'post'
 
 class Posts
   attr_reader :posts

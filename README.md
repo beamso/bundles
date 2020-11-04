@@ -15,4 +15,4 @@
 * `bundle exec rspec` will run `RSpec`
 
 ## program execution
-*
+* e.g. `ruby ./bundle_calculator.rb posts.json 10 IMG 15 FLAC 13 VID`

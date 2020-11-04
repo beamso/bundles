@@ -45,4 +45,17 @@ RSpec.describe Post do
   it 'has the expected cost on the last bundle' do
     expect(subject.bundles.last.cost).to eq(800.0)
   end
+
+  context 'with no bundles' do
+    let(:hash) do
+      {
+        submission_format: 'Image',
+        format_code: 'IMG'
+      }
+    end
+
+    it 'has zero bundles' do
+      expect(subject.bundles).to be_empty
+    end
+  end
 end
