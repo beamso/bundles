@@ -16,3 +16,6 @@
 
 ## program execution
 * e.g. `ruby ./bundle_calculator.rb posts.json 10 IMG 15 FLAC 13 VID`
+
+## issues
+* It will struggle with larger numbers, as it's using recursion to work out the optimum size.  The `iterative` branch includes an attempt at an iterative solution, but it fails on "15 FLAC" and with RuboCop issues.
