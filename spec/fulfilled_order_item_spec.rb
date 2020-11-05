@@ -39,6 +39,17 @@ RSpec.describe FulfilledOrderItem do
     end
   end
 
+  describe '.set_bundle_size_count' do
+    let(:instance) { described_class.new(post, total) }
+
+    subject { instance.set_bundle_size_count(3, 2) }
+
+    it 'has the expected count_for_bundle_size' do
+      subject
+      expect(instance.count_for_bundle_size(3)).to eq(2)
+    end
+  end
+
   describe '.increment_bundle_size' do
     let(:instance) { described_class.new(post, total) }
 

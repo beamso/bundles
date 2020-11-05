@@ -36,13 +36,43 @@ class BundleCalculatorImpl
   def fulfil_order_item(order_item)
     post = @posts.post_by_format_code(order_item.format_code)
     bundles = post.bundles
-    smallest_bundle = bundles.min { |a, b| a.number <=> b.number }
-    order_item_number = order_item.number
-    if order_item_number < smallest_bundle.number
-      warn "Cannot fulfil order of #{order_item_number} #{order_item.format_code}"
-      return FulfilledOrderItem.new(post, order_item_number)
+    total_amount = order_item.number
+    fulfilled_order_item = FulfilledOrderItem.new(post, total_amount)
+    bundle_sizes = bundles.map(&:number).sort { |a, b| b <=> a }
+    while total_amount >= 0
+      bundle_used = false
+      bundle_sizes.each do |bundle_size|
+        break if bundle_used
+
+        if (total_amount % bundle_size).zero? && bundle_size != bundle_sizes.last
+          bundle_used = true
+          total_amount = fulfil_bundle_size(fulfilled_order_item, bundle_size, total_amount)
+        end
+      end
+      break if total_amount <= 0
+
+      if total_amount.positive? && !bundle_used
+        total_amount = remove_smallest_bundle_size(fulfilled_order_item, bundle_sizes, total_amount)
+      end
     end
-    fulfil_order_item_for_post(post, bundles, order_item_number)
+    warn "Cannot fulfil order of #{order_item.number} #{post.format_code}" unless fulfilled_order_item.complete?
+    fulfilled_order_item
+  end
+
+  def fulfil_bundle_size(fulfilled_order_item, bundle_size, total_amount)
+    bundle_count = total_amount / bundle_size
+    total_amount -= (bundle_count * bundle_size)
+    current_bundle_count = fulfilled_order_item.count_for_bundle_size(bundle_size)
+    current_bundle_count += bundle_count
+    fulfilled_order_item.set_bundle_size_count(bundle_size, current_bundle_count)
+    total_amount
+  end
+
+  def remove_smallest_bundle_size(fulfilled_order_item, bundle_sizes, total_amount)
+    bundle_size = bundle_sizes.last
+    total_amount -= bundle_size
+    fulfilled_order_item.increment_bundle_size(bundle_size)
+    total_amount
   end
 
   def fulfil_order_item_for_post(post, bundles, order_item_number)

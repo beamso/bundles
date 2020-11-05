@@ -11,6 +11,10 @@ class FulfilledOrderItem
     @post.format_code
   end
 
+  def set_bundle_size_count(bundle_size, count)
+    @bundle_size_to_count[bundle_size] = count
+  end
+
   def increment_bundle_size(bundle_size)
     @bundle_size_to_count[bundle_size] = 0 unless @bundle_size_to_count.key?(bundle_size)
     @bundle_size_to_count[bundle_size] += 1
